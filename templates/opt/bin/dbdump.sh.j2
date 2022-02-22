@@ -1,0 +1,34 @@
+#!/bin/sh
+
+umask 077
+
+# db
+keys="{{ dbdump_password_file }}"
+distdir="/var/backup/database"
+filename_for_db="database_$(date +%Y%m%d)"
+filename_for_keyword="keyword_$(date +%Y%m%d)"
+
+# create backup dir if not exist.
+[ -d $distdir ] || mkdir -p $distdir
+
+if [ -e $keys ]; then
+  source $keys
+  # for all database
+  /bin/mysqldump --opt --all-databases --events --single-transaction --add-drop-database \
+                 -h 127.0.0.1 -u root --password=$DB_PASS \
+  | gzip > $distdir/${filename_for_db}.sql.gz
+  # for all user and grant (db_name: mysql)
+  /bin/mysqldump --opt --allow-keywords --events --single-transaction \
+                 -h 127.0.0.1 -u root --password=$DB_PASS mysql \
+  | gzip > $distdir/${filename_for_keyword}.sql.gz
+fi
+
+# delete in 3 days ago.
+#find $distdir -name ${filename}\* -atime +2 -exec rm '{}' \;
+find $distdir -type f \
+  -not -name "*$(date +'%Y%m%d')*" \
+  -not -name "*$(date +'%Y%m%d' --date '1 day ago')*" \
+  -not -name "*$(date +'%Y%m%d' --date '2 day ago')*" \
+  -exec rm '{}' \;
+
+exit 0

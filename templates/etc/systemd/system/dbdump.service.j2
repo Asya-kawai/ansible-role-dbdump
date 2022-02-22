@@ -1,0 +1,12 @@
+[Unit]
+Description=The database dump script for web,app,db settings
+Wants={{ dbdump_timer_name }}
+
+[Service]
+Type=oneshot
+User={{ dbdump_user }}
+Group={{ dbdump_group }}
+ExecStart={{ dbdump_script_path }}
+
+[Install]
+WantedBy=multi-user.target

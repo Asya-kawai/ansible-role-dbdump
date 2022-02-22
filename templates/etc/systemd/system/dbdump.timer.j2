@@ -1,0 +1,10 @@
+[Unit]
+Description=The timer of database dump script for web,app,db settings
+Requires={{ dbdump_service_name }}
+
+[Timer]
+Unit={{ dbdump_service_name}}
+OnCalendar={{ dbdump_on_calender }}
+
+[Install]
+WantedBy=timers.target

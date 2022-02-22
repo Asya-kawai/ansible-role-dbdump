@@ -1,0 +1,13 @@
+---
+dbdump_script_name: dbdump.sh
+dbdump_script_path: "{{ dbdump_script_dir.rstrip('/') }}/{{ dbdump_script_name }}"
+
+dbdump_service_dir: /etc/systemd/system
+dbdump_service_name: dbdump.service
+dbdump_timer_dir: /etc/systemd/system
+dbdump_timer_name: dbdump.timer
+
+dbdump_service_path: "{{ dbdump_service_dir.rstrip('/') }}/{{ dbdump_service_name }}"
+dbdump_timer_path: "{{ dbdump_timer_dir.rstrip('/') }}/{{ dbdump_timer_name }}"
+
+dir_dbdump_path: "{{ dir_dbdump_dir.rstrip('/') }}/{{ dir_dbdump_name }}"

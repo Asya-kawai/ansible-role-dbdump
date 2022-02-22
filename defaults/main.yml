@@ -1,0 +1,12 @@
+---
+dbdump_debian_install: []
+dbdump_redhat_install: []
+
+dbdump_user: root
+dbdump_group: root
+
+# Example: /root/keys.sh
+dbdump_password_file: ""
+
+dbdump_script_dir: /opt/bin
+dbdump_on_calender: '*-*-* 00:00:00'
