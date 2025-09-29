@@ -15,11 +15,11 @@ if [ -e $keys ]; then
   source $keys
   # for all database
   /bin/mysqldump --opt --all-databases --events --single-transaction --add-drop-database \
-                 -h 127.0.0.1 -u root --password=$DB_PASS \
+                 -h localhost -u root --password=$DB_PASS \
   | gzip > $distdir/${filename_for_db}.sql.gz
   # for all user and grant (db_name: mysql)
   /bin/mysqldump --opt --allow-keywords --events --single-transaction \
-                 -h 127.0.0.1 -u root --password=$DB_PASS mysql \
+                 -h localhost -u root --password=$DB_PASS mysql \
   | gzip > $distdir/${filename_for_keyword}.sql.gz
 fi
 
